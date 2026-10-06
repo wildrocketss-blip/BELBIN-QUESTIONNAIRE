@@ -17,6 +17,19 @@
   --good:#18794e;
   --bad:#b42318;
   --white:#fff;
+
+  --high:#176b45;
+  --high-bg:#e8f6ef;
+  --high-border:#b7dfca;
+
+  --middle:#8a6415;
+  --middle-bg:#fbf3dc;
+  --middle-border:#ead9a7;
+
+  --low:#596773;
+  --low-bg:#f0f3f5;
+  --low-border:#d9e0e6;
+
   --shadow:0 10px 30px rgba(22,59,99,.08);
   --shadow-sm:0 4px 14px rgba(22,59,99,.06);
 }
@@ -42,6 +55,10 @@ body{
   margin:0 auto;
   padding:30px 20px 60px;
 }
+
+/* =========================
+   HERO
+   ========================= */
 
 .hero{
   position:relative;
@@ -198,6 +215,10 @@ body{
   transition:.25s;
 }
 
+/* =========================
+   INSTRUCTIONS
+   ========================= */
+
 .instructions,
 .section-card,
 .results{
@@ -236,6 +257,10 @@ body{
 .instructions strong{
   color:var(--navy);
 }
+
+/* =========================
+   QUESTION SECTIONS
+   ========================= */
 
 .section-card{
   margin:18px 0;
@@ -374,6 +399,10 @@ body{
   padding:6px 4px;
 }
 
+/* =========================
+   BUTTONS
+   ========================= */
+
 .actions{
   display:flex;
   gap:10px;
@@ -391,6 +420,11 @@ body{
   font-size:.94rem;
   font-weight:800;
   cursor:pointer;
+  transition:.15s ease;
+}
+
+.btn:hover:not(:disabled){
+  transform:translateY(-1px);
 }
 
 .primary{
@@ -409,20 +443,16 @@ body{
   cursor:not-allowed;
 }
 
-.btn svg{
-  width:17px;
-  height:17px;
-  stroke:currentColor;
-  fill:none;
-  stroke-width:2;
-}
-
 .message{
   margin:-7px 0 16px;
   color:var(--bad);
   font-weight:700;
   display:none;
 }
+
+/* =========================
+   RESULTS
+   ========================= */
 
 .results{
   display:none;
@@ -486,6 +516,10 @@ body{
   color:var(--navy);
 }
 
+/* =========================
+   HIGH / MIDDLE / LOW
+   ========================= */
+
 .role-groups{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -497,13 +531,12 @@ body{
   border:1px solid var(--line);
   border-radius:14px;
   overflow:hidden;
+  transition:.2s;
 }
 
 .role-group-head{
   padding:14px 16px;
   font-weight:900;
-  color:var(--navy);
-  background:#f8fbfd;
   border-bottom:1px solid var(--line);
 }
 
@@ -517,7 +550,7 @@ body{
   gap:12px;
   align-items:center;
   padding:11px 2px;
-  border-bottom:1px solid #edf1f5;
+  border-bottom:1px solid rgba(100,116,139,.12);
 }
 
 .role-item:last-child{
@@ -538,12 +571,96 @@ body{
   min-width:40px;
   text-align:center;
   font-weight:900;
-  color:var(--navy);
-  background:var(--pale);
-  border:1px solid #dce7f0;
   border-radius:9px;
   padding:6px 7px;
 }
+
+/* Highest */
+
+.role-group.high{
+  border-color:var(--high-border);
+  background:#fbfefc;
+}
+
+.role-group.high .role-group-head{
+  background:var(--high-bg);
+  color:var(--high);
+  border-bottom-color:#cce9d9;
+}
+
+.role-group.high .role-score{
+  background:var(--high-bg);
+  border:1px solid #c3e5d3;
+  color:var(--high);
+}
+
+/* Middle */
+
+.role-group.middle{
+  border-color:var(--middle-border);
+  background:#fffefa;
+}
+
+.role-group.middle .role-group-head{
+  background:var(--middle-bg);
+  color:var(--middle);
+  border-bottom-color:var(--middle-border);
+}
+
+.role-group.middle .role-score{
+  background:var(--middle-bg);
+  border:1px solid #e7d292;
+  color:#805d14;
+}
+
+/* Lowest */
+
+.role-group.low{
+  border-color:var(--low-border);
+  background:#fcfcfd;
+}
+
+.role-group.low .role-group-head{
+  background:var(--low-bg);
+  color:var(--low);
+  border-bottom-color:var(--low-border);
+}
+
+.role-group.low .role-score{
+  background:var(--low-bg);
+  border:1px solid var(--low-border);
+  color:var(--low);
+}
+
+/* Colour indicator dots */
+
+.role-group.high .role-group-head::before,
+.role-group.middle .role-group-head::before,
+.role-group.low .role-group-head::before{
+  content:"";
+  display:inline-block;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  margin-right:8px;
+  vertical-align:1px;
+}
+
+.role-group.high .role-group-head::before{
+  background:#23865b;
+}
+
+.role-group.middle .role-group-head::before{
+  background:#c38b1d;
+}
+
+.role-group.low .role-group-head::before{
+  background:#84919c;
+}
+
+/* =========================
+   DETAILED RESULTS TABLE
+   ========================= */
 
 .table-wrap{
   overflow:auto;
@@ -556,7 +673,8 @@ table{
   border-collapse:collapse;
 }
 
-th,td{
+th,
+td{
   text-align:left;
   padding:12px 11px;
   border-bottom:1px solid var(--line);
@@ -604,13 +722,20 @@ td.score{
   text-align:center;
 }
 
+/* =========================
+   RESPONSIVE
+   ========================= */
+
 @media(max-width:800px){
+
   .role-groups{
     grid-template-columns:1fr;
   }
+
 }
 
 @media(max-width:700px){
+
   .shell{
     padding:14px 10px 40px;
   }
@@ -643,9 +768,15 @@ td.score{
   .slider-wrap{
     grid-column:2;
   }
+
 }
 
+/* =========================
+   PRINT
+   ========================= */
+
 @media print{
+
   body{
     background:#fff;
   }
@@ -664,6 +795,7 @@ td.score{
     box-shadow:none;
     border:0;
   }
+
 }
 </style>
 </head>
@@ -709,6 +841,7 @@ Your results will be calculated automatically after all seven sections are compl
 
 <div class="progress-wrap">
 <span id="progressText">0 of 7 sections complete</span>
+
 <div class="progress">
 <span id="progressBar"></span>
 </div>
@@ -729,10 +862,10 @@ Your results will be calculated automatically after all seven sections are compl
 
 <div>
 <strong>How to complete it</strong><br>
-For each section, use the sliders to distribute <strong>exactly 10 points</strong>
-across the nine statements. Give more points to statements that describe you
-more accurately. The system will automatically prevent the section total from
-exceeding 10 points.
+For each section, use the sliders to distribute
+<strong>exactly 10 points</strong> across the nine statements.
+Give more points to statements that describe you more accurately.
+The system will automatically prevent the section total from exceeding 10 points.
 </div>
 
 </section>
@@ -740,6 +873,7 @@ exceeding 10 points.
 <main id="questionnaire"></main>
 
 <div class="actions">
+
 <button class="btn primary" id="calculate" disabled>
 Calculate my Belbin profile
 </button>
@@ -747,6 +881,7 @@ Calculate my Belbin profile
 <button class="btn secondary" id="reset">
 Reset questionnaire
 </button>
+
 </div>
 
 <div class="message" id="message">
@@ -756,6 +891,7 @@ Please make sure every section totals exactly 10 points.
 <section class="results" id="results">
 
 <div class="results-head">
+
 <div class="results-icon">
 <svg viewBox="0 0 24 24">
 <path d="M4 19V9M10 19V5M16 19v-8M22 19V3"/>
@@ -766,34 +902,49 @@ Please make sure every section totals exactly 10 points.
 <h2>Your Belbin Team Role Profile</h2>
 <p class="lead" id="resultLead"></p>
 </div>
+
 </div>
 
 <div class="top-role">
-<div class="eyebrow">Highest-scoring role</div>
+
+<div class="eyebrow">
+Highest-scoring role
+</div>
+
 <div class="name" id="topRole"></div>
+
 </div>
 
 <div class="role-groups">
 
 <section class="role-group high">
+
 <div class="role-group-head">
 My three highest scoring team roles
 </div>
+
 <div class="role-list" id="highRoles"></div>
+
 </section>
 
 <section class="role-group middle">
+
 <div class="role-group-head">
 My three middle scoring team roles
 </div>
+
 <div class="role-list" id="middleRoles"></div>
+
 </section>
 
 <section class="role-group low">
+
 <div class="role-group-head">
 My three lowest scoring team roles
 </div>
+
 <div class="role-list" id="lowRoles"></div>
+
 </section>
 
 </div>
@@ -818,12 +969,13 @@ My three lowest scoring team roles
 </div>
 
 <p class="note">
-Your highest three scores indicate your strongest preferred team-role
-tendencies. Your middle three are roles you may draw on when needed,
-while your lowest three are likely to be less natural preferences.
+Your highest three scores indicate your strongest preferred team-role tendencies.
+Your middle three are roles you may draw on when needed, while your lowest three
+are likely to be less natural preferences.
 </p>
 
 <div class="actions">
+
 <button class="btn primary" id="printBtn">
 Print / Save results
 </button>
@@ -831,6 +983,7 @@ Print / Save results
 <button class="btn secondary" id="csvBtn">
 Download results (CSV)
 </button>
+
 </div>
 
 </section>
@@ -843,7 +996,12 @@ Question wording and scoring key are based on the supplied Belbin Team Roles que
 
 <script>
 
+/* =====================================================
+   QUESTIONNAIRE
+   ===================================================== */
+
 const sections = [
+
 {
 id:"A",
 title:"What I believe I can contribute to a team:",
@@ -955,712 +1113,873 @@ items:[
 {code:78,text:"I hesitate to express my personal views in front of difficult or powerful people"}
 ]
 }
+
 ];
 
+/* =====================================================
+   BELBIN SCORING KEY
+   ===================================================== */
+
 const roles=[
+
 {
 code:"CO",
 name:"Coordinator",
 items:[13,21,30,48,55,63,76]
 },
+
 {
 code:"SH",
 name:"Shaper",
 items:[16,25,32,42,53,67,70]
 },
+
 {
 code:"PL",
 name:"Plant",
 items:[12,27,33,45,57,61,75]
 },
+
 {
 code:"ME",
 name:"Monitor Evaluator",
 items:[18,24,37,43,50,65,71]
 },
+
 {
 code:"IMP",
 name:"Implementer",
 items:[17,20,38,44,51,66,74]
 },
+
 {
 code:"TW",
 name:"Teamworker",
 items:[11,26,34,40,52,62,78]
 },
+
 {
 code:"RI",
 name:"Resource Investigator",
 items:[10,23,35,47,54,68,73]
 },
+
 {
 code:"CF",
 name:"Completer Finisher",
 items:[14,28,31,46,56,64,72]
 },
+
 {
 code:"SP",
 name:"Specialist",
 items:[15,22,36,41,58,60,77]
 }
+
 ];
 
+/* =====================================================
+   ANSWER STORAGE
+   ===================================================== */
+
 const answers=Object.fromEntries(
-sections.flatMap(
-s=>s.items.map(i=>[i.code,0])
-)
+  sections.flatMap(
+    s=>s.items.map(i=>[i.code,0])
+  )
 );
+
+/* =====================================================
+   VALIDATE QUESTIONNAIRE CONFIGURATION
+   ===================================================== */
 
 function validateConfiguration(){
 
-const questionnaireCodes=
-sections.flatMap(s=>s.items.map(i=>i.code));
+  const questionnaireCodes=
+    sections.flatMap(
+      s=>s.items.map(i=>i.code)
+    );
 
-const mappedCodes=
-roles.flatMap(r=>r.items);
+  const mappedCodes=
+    roles.flatMap(
+      r=>r.items
+    );
 
-const uniqueQuestionnaire=
-new Set(questionnaireCodes);
+  const uniqueQuestionnaire=
+    new Set(questionnaireCodes);
 
-const uniqueMapped=
-new Set(mappedCodes);
+  const uniqueMapped=
+    new Set(mappedCodes);
 
-const validSections=
-sections.length===7 &&
-sections.every(s=>s.items.length===9);
+  const validSections=
+    sections.length===7 &&
+    sections.every(
+      s=>s.items.length===9
+    );
 
-const validMapping=
-questionnaireCodes.length===63 &&
-mappedCodes.length===63 &&
-uniqueQuestionnaire.size===63 &&
-uniqueMapped.size===63 &&
-questionnaireCodes.every(
-c=>uniqueMapped.has(c)
-);
+  const validMapping=
+    questionnaireCodes.length===63 &&
+    mappedCodes.length===63 &&
+    uniqueQuestionnaire.size===63 &&
+    uniqueMapped.size===63 &&
+    questionnaireCodes.every(
+      c=>uniqueMapped.has(c)
+    );
 
-if(!validSections || !validMapping){
-throw new Error(
-"Questionnaire scoring configuration failed validation."
-);
-}
+  if(!validSections || !validMapping){
+    throw new Error(
+      "Questionnaire scoring configuration failed validation."
+    );
+  }
 
 }
 
 validateConfiguration();
 
+/* =====================================================
+   REFERENCES
+   ===================================================== */
+
 const q=
-document.getElementById("questionnaire");
+  document.getElementById("questionnaire");
 
 const calcBtn=
-document.getElementById("calculate");
+  document.getElementById("calculate");
 
 const msg=
-document.getElementById("message");
+  document.getElementById("message");
+
+/* =====================================================
+   RENDER QUESTIONNAIRE
+   ===================================================== */
 
 function renderQuestionnaire(){
 
-q.innerHTML=
-sections.map(s=>`
+  q.innerHTML=
+    sections.map(s=>`
 
-<section class="section-card" id="section-${s.id}">
+    <section
+      class="section-card"
+      id="section-${s.id}"
+    >
 
-<div class="section-head">
+      <div class="section-head">
 
-<div class="section-title-wrap">
+        <div class="section-title-wrap">
 
-<div class="section-icon">
-<svg viewBox="0 0 24 24">
-<path d="M5 5h14M5 12h14M5 19h9"/>
-</svg>
-</div>
+          <div class="section-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M5 5h14M5 12h14M5 19h9"/>
+            </svg>
+          </div>
 
-<div>
-<div class="section-kicker">
-Section ${s.id}
-</div>
+          <div>
 
-<div class="section-title">
-${escapeHtml(s.title)}
-</div>
-</div>
+            <div class="section-kicker">
+              Section ${s.id}
+            </div>
 
-</div>
+            <div class="section-title">
+              ${escapeHtml(s.title)}
+            </div>
 
-<div class="counter" id="counter-${s.id}">
-0 / 10 points
-</div>
+          </div>
 
-</div>
+        </div>
 
-<div class="statements">
+        <div
+          class="counter"
+          id="counter-${s.id}"
+        >
+          0 / 10 points
+        </div>
 
-${s.items.map(i=>`
+      </div>
 
-<div class="row">
+      <div class="statements">
 
-<div class="badge">
-${i.code}
-</div>
+        ${s.items.map(i=>`
 
-<label
-class="statement"
-for="score-${i.code}">
-${escapeHtml(i.text)}
-</label>
+          <div class="row">
 
-<div class="slider-wrap">
+            <div class="badge">
+              ${i.code}
+            </div>
 
-<input
-class="score-input"
-id="score-${i.code}"
-type="range"
-min="0"
-max="10"
-step="1"
-value="0"
-data-code="${i.code}"
-data-section="${s.id}">
+            <label
+              class="statement"
+              for="score-${i.code}"
+            >
+              ${escapeHtml(i.text)}
+            </label>
 
-<span
-class="score-value"
-id="value-${i.code}">
-0
-</span>
+            <div class="slider-wrap">
 
-</div>
+              <input
+                class="score-input"
+                id="score-${i.code}"
+                type="range"
+                min="0"
+                max="10"
+                step="1"
+                value="0"
+                data-code="${i.code}"
+                data-section="${s.id}"
+              >
 
-</div>
+              <span
+                class="score-value"
+                id="value-${i.code}"
+              >
+                0
+              </span>
 
-`).join("")}
+            </div>
 
-</div>
+          </div>
 
-</section>
+        `).join("")}
 
-`).join("");
+      </div>
 
-document
-.querySelectorAll(".score-input")
-.forEach(el=>{
+    </section>
 
-el.addEventListener("input",e=>{
+  `).join("");
 
-const code=
-Number(e.target.dataset.code);
+  document
+    .querySelectorAll(".score-input")
+    .forEach(el=>{
 
-const sectionId=
-e.target.dataset.section;
+      el.addEventListener(
+        "input",
+        e=>{
 
-const section=
-sections.find(
-s=>s.id===sectionId
-);
+          const code=
+            Number(
+              e.target.dataset.code
+            );
 
-const requested=
-Number(e.target.value)||0;
+          const sectionId=
+            e.target.dataset.section;
 
-const otherTotal=
-section.items.reduce(
-(sum,i)=>
-sum+
-(
-i.code===code
-?
-0
-:
-answers[i.code]||0
-),
-0
-);
+          const section=
+            sections.find(
+              s=>s.id===sectionId
+            );
 
-const allowed=
-Math.max(
-0,
-10-otherTotal
-);
+          const requested=
+            Number(e.target.value)||0;
 
-const val=
-Math.min(
-requested,
-allowed
-);
+          const otherTotal=
+            section.items.reduce(
+              (sum,i)=>
+                sum+
+                (
+                  i.code===code
+                  ? 0
+                  : answers[i.code]||0
+                ),
+              0
+            );
 
-answers[code]=val;
+          const allowed=
+            Math.max(
+              0,
+              10-otherTotal
+            );
 
-e.target.value=val;
+          const val=
+            Math.min(
+              requested,
+              allowed
+            );
 
-document
-.getElementById(
-`value-${code}`
-)
-.textContent=val;
+          answers[code]=val;
 
-updateSliderLimits(sectionId);
+          e.target.value=val;
 
-updateStatus();
+          document
+            .getElementById(
+              `value-${code}`
+            )
+            .textContent=val;
 
-});
+          updateSliderLimits(
+            sectionId
+          );
 
-});
+          updateStatus();
 
-updateStatus();
+        }
+      );
+
+    });
+
+  updateStatus();
 
 }
+
+/* =====================================================
+   ESCAPE HTML
+   ===================================================== */
 
 function escapeHtml(s){
 
-return String(s)
-.replace(
-/[&<>'"]/g,
-c=>({
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-"'":"&#39;",
-'"':"&quot;"
-}[c])
-);
+  return String(s).replace(
+    /[&<>'"]/g,
+    c=>({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      "'":"&#39;",
+      '"':"&quot;"
+    }[c])
+  );
 
 }
+
+/* =====================================================
+   SECTION TOTAL
+   ===================================================== */
 
 function sectionTotal(s){
 
-return s.items.reduce(
-(sum,i)=>
-sum+(answers[i.code]||0),
-0
-);
+  return s.items.reduce(
+    (sum,i)=>
+      sum+(answers[i.code]||0),
+    0
+  );
 
 }
+
+/* =====================================================
+   HARD CAP SLIDERS AT 10 POINTS
+   ===================================================== */
 
 function updateSliderLimits(sectionId){
 
-const section=
-sections.find(
-s=>s.id===sectionId
-);
+  const section=
+    sections.find(
+      s=>s.id===sectionId
+    );
 
-const total=
-sectionTotal(section);
+  const total=
+    sectionTotal(section);
 
-section.items.forEach(i=>{
+  section.items.forEach(i=>{
 
-const slider=
-document.getElementById(
-`score-${i.code}`
-);
+    const slider=
+      document.getElementById(
+        `score-${i.code}`
+      );
 
-const current=
-answers[i.code]||0;
+    const current=
+      answers[i.code]||0;
 
-const otherTotal=
-total-current;
+    const otherTotal=
+      total-current;
 
-slider.max=
-Math.max(
-current,
-10-otherTotal
-);
+    slider.max=
+      Math.max(
+        current,
+        10-otherTotal
+      );
 
-});
+  });
 
 }
+
+/* =====================================================
+   UPDATE COMPLETION STATUS
+   ===================================================== */
 
 function updateStatus(){
 
-let complete=0;
+  let complete=0;
 
-sections.forEach(s=>{
+  sections.forEach(s=>{
 
-const total=
-sectionTotal(s);
+    const total=
+      sectionTotal(s);
 
-const el=
-document.getElementById(
-`counter-${s.id}`
-);
+    const el=
+      document.getElementById(
+        `counter-${s.id}`
+      );
 
-el.textContent=
-`${total} / 10 points`;
+    el.textContent=
+      `${total} / 10 points`;
 
-el.classList.toggle(
-"ok",
-total===10
-);
+    el.classList.toggle(
+      "ok",
+      total===10
+    );
 
-updateSliderLimits(s.id);
+    updateSliderLimits(
+      s.id
+    );
 
-if(total===10){
-complete++;
+    if(total===10){
+      complete++;
+    }
+
+  });
+
+  document
+    .getElementById(
+      "progressText"
+    )
+    .textContent=
+      `${complete} of 7 sections complete`;
+
+  document
+    .getElementById(
+      "progressBar"
+    )
+    .style.width=
+      `${complete/7*100}%`;
+
+  calcBtn.disabled=
+    complete!==7;
+
+  if(complete===7){
+    msg.style.display="none";
+  }
+
 }
 
-});
-
-document
-.getElementById("progressText")
-.textContent=
-`${complete} of 7 sections complete`;
-
-document
-.getElementById("progressBar")
-.style.width=
-`${complete/7*100}%`;
-
-calcBtn.disabled=
-complete!==7;
-
-if(complete===7){
-msg.style.display="none";
-}
-
-}
+/* =====================================================
+   CALCULATE RESULTS
+   ===================================================== */
 
 function calculate(){
 
-if(
-sections.some(
-s=>sectionTotal(s)!==10
-)
-){
+  if(
+    sections.some(
+      s=>sectionTotal(s)!==10
+    )
+  ){
 
-msg.style.display="block";
-return;
+    msg.textContent=
+      "Please make sure every section totals exactly 10 points.";
+
+    msg.style.display="block";
+
+    return;
+  }
+
+  const scored=
+    roles.map(r=>({
+
+      code:r.code,
+
+      name:r.name,
+
+      score:
+        r.items.reduce(
+          (sum,c)=>
+            sum+(answers[c]||0),
+          0
+        )
+
+    }))
+    .sort(
+      (a,b)=>
+        b.score-a.score ||
+        a.name.localeCompare(b.name)
+    );
+
+  /* Verify that all seven 10-point sections
+     reconcile to exactly 70 points */
+
+  const reconciledTotal=
+    scored.reduce(
+      (sum,r)=>sum+r.score,
+      0
+    );
+
+  if(reconciledTotal!==70){
+
+    msg.textContent=
+      "A scoring validation error was detected. Please reset the questionnaire and try again.";
+
+    msg.style.display="block";
+
+    return;
+  }
+
+  /* Assign competition-style ranks */
+
+  let lastScore=null;
+  let lastRank=0;
+
+  scored.forEach(
+    (r,index)=>{
+
+      if(r.score!==lastScore){
+
+        lastRank=index+1;
+        lastScore=r.score;
+
+      }
+
+      r.rank=lastRank;
+
+    }
+  );
+
+  const name=
+    document
+      .getElementById(
+        "participant"
+      )
+      .value
+      .trim();
+
+  document
+    .getElementById(
+      "resultLead"
+    )
+    .textContent=
+      name
+      ? `${name}, your scores are shown below.`
+      : "Your scores are shown below.";
+
+  /* Highest scoring role */
+
+  const leaders=
+    scored.filter(
+      r=>r.score===scored[0].score
+    );
+
+  document
+    .getElementById(
+      "topRole"
+    )
+    .textContent=
+      leaders
+        .map(
+          r=>`${r.name} (${r.code})`
+        )
+        .join(" / ")
+      +
+      ` — ${scored[0].score} points`;
+
+  /* Group results */
+
+  const high=
+    scored.slice(0,3);
+
+  const middle=
+    scored.slice(3,6);
+
+  const low=
+    scored.slice(6,9);
+
+  const renderGroup=
+    items=>
+      items.map(
+        r=>`
+
+        <div class="role-item">
+
+          <div>
+
+            <div class="role-name">
+              ${escapeHtml(r.name)}
+            </div>
+
+            <div class="role-code">
+              ${r.code}
+            </div>
+
+          </div>
+
+          <div class="role-score">
+            ${r.score}
+          </div>
+
+        </div>
+
+      `
+      ).join("");
+
+  document
+    .getElementById(
+      "highRoles"
+    )
+    .innerHTML=
+      renderGroup(high);
+
+  document
+    .getElementById(
+      "middleRoles"
+    )
+    .innerHTML=
+      renderGroup(middle);
+
+  document
+    .getElementById(
+      "lowRoles"
+    )
+    .innerHTML=
+      renderGroup(low);
+
+  /* Detailed results */
+
+  const max=
+    Math.max(
+      ...scored.map(r=>r.score),
+      1
+    );
+
+  document
+    .getElementById(
+      "resultsBody"
+    )
+    .innerHTML=
+      scored.map(
+        r=>`
+
+        <tr>
+
+          <td>
+            ${r.rank}
+          </td>
+
+          <td>
+            <strong>
+              ${escapeHtml(r.name)}
+            </strong>
+            (${r.code})
+          </td>
+
+          <td class="score">
+            ${r.score}
+          </td>
+
+          <td>
+
+            <div class="bar">
+              <span
+                style="width:${r.score/max*100}%"
+              ></span>
+            </div>
+
+          </td>
+
+        </tr>
+
+      `
+      ).join("");
+
+  document
+    .getElementById(
+      "results"
+    )
+    .style.display=
+      "block";
+
+  document
+    .getElementById(
+      "results"
+    )
+    .scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+  window.currentResults=
+    scored;
 
 }
 
-const scored=
-roles.map(r=>({
-
-code:r.code,
-
-name:r.name,
-
-score:
-r.items.reduce(
-(sum,c)=>
-sum+(answers[c]||0),
-0
-)
-
-}))
-.sort(
-(a,b)=>
-b.score-a.score ||
-a.name.localeCompare(b.name)
-);
-
-const reconciledTotal=
-scored.reduce(
-(sum,r)=>sum+r.score,
-0
-);
-
-if(reconciledTotal!==70){
-
-msg.textContent=
-"A scoring validation error was detected. Please reset the questionnaire and try again.";
-
-msg.style.display="block";
-
-return;
-
-}
-
-let lastScore=null;
-let lastRank=0;
-
-scored.forEach(
-(r,index)=>{
-
-if(r.score!==lastScore){
-
-lastRank=index+1;
-lastScore=r.score;
-
-}
-
-r.rank=lastRank;
-
-}
-);
-
-const name=
-document
-.getElementById("participant")
-.value
-.trim();
-
-document
-.getElementById("resultLead")
-.textContent=
-name
-?
-`${name}, your scores are shown below.`
-:
-"Your scores are shown below.";
-
-const leaders=
-scored.filter(
-r=>r.score===scored[0].score
-);
-
-document
-.getElementById("topRole")
-.textContent=
-leaders
-.map(
-r=>`${r.name} (${r.code})`
-)
-.join(" / ")
-+
-` — ${scored[0].score} points`;
-
-const max=
-Math.max(
-...scored.map(r=>r.score),
-1
-);
-
-const renderGroup=
-items=>
-items.map(
-r=>`
-
-<div class="role-item">
-
-<div>
-
-<div class="role-name">
-${escapeHtml(r.name)}
-</div>
-
-<div class="role-code">
-${r.code}
-</div>
-
-</div>
-
-<div class="role-score">
-${r.score}
-</div>
-
-</div>
-
-`
-).join("");
-
-document
-.getElementById("highRoles")
-.innerHTML=
-renderGroup(
-scored.slice(0,3)
-);
-
-document
-.getElementById("middleRoles")
-.innerHTML=
-renderGroup(
-scored.slice(3,6)
-);
-
-document
-.getElementById("lowRoles")
-.innerHTML=
-renderGroup(
-scored.slice(6,9)
-);
-
-document
-.getElementById("resultsBody")
-.innerHTML=
-scored.map(
-r=>`
-
-<tr>
-
-<td>
-${r.rank}
-</td>
-
-<td>
-<strong>
-${escapeHtml(r.name)}
-</strong>
-(${r.code})
-</td>
-
-<td class="score">
-${r.score}
-</td>
-
-<td>
-
-<div class="bar">
-<span
-style="width:${r.score/max*100}%">
-</span>
-</div>
-
-</td>
-
-</tr>
-
-`
-).join("");
-
-document
-.getElementById("results")
-.style.display=
-"block";
-
-document
-.getElementById("results")
-.scrollIntoView({
-behavior:"smooth",
-block:"start"
-});
-
-window.currentResults=scored;
-
-}
+/* =====================================================
+   RESET
+   ===================================================== */
 
 function resetAll(){
 
-document
-.querySelectorAll(".score-input")
-.forEach(el=>{
+  document
+    .querySelectorAll(
+      ".score-input"
+    )
+    .forEach(el=>{
 
-el.value=0;
+      el.value=0;
+      el.max=10;
 
-document
-.getElementById(
-`value-${el.dataset.code}`
-)
-.textContent="0";
+      document
+        .getElementById(
+          `value-${el.dataset.code}`
+        )
+        .textContent="0";
 
-el.max=10;
+    });
 
-});
+  Object
+    .keys(answers)
+    .forEach(
+      k=>answers[k]=0
+    );
 
-Object
-.keys(answers)
-.forEach(
-k=>answers[k]=0
-);
+  document
+    .getElementById(
+      "participant"
+    )
+    .value="";
 
-document
-.getElementById("participant")
-.value="";
+  document
+    .getElementById(
+      "results"
+    )
+    .style.display="none";
 
-document
-.getElementById("results")
-.style.display="none";
+  msg.style.display="none";
 
-msg.style.display="none";
+  updateStatus();
 
-updateStatus();
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
 }
+
+/* =====================================================
+   CSV EXPORT
+   ===================================================== */
 
 function downloadCSV(){
 
-const name=
-document
-.getElementById("participant")
-.value
-.trim();
+  if(!window.currentResults){
+    return;
+  }
 
-const rows=[
-[
-"Participant",
-"Rank",
-"Role Code",
-"Team Role",
-"Score"
-],
+  const name=
+    document
+      .getElementById(
+        "participant"
+      )
+      .value
+      .trim();
 
-...window.currentResults.map(
-r=>[
-name,
-r.rank,
-r.code,
-r.name,
-r.score
-]
-)
-];
+  const rows=[
 
-const csv=
-rows.map(
-row=>
-row.map(
-v=>
-'"'+
-String(v)
-.replace(/"/g,'""')
-+'"'
-)
-.join(",")
-)
-.join("\r\n");
+    [
+      "Participant",
+      "Category",
+      "Rank",
+      "Role Code",
+      "Team Role",
+      "Score"
+    ],
 
-const blob=
-new Blob(
-["\ufeff"+csv],
-{
-type:"text/csv;charset=utf-8"
+    ...window.currentResults.map(
+      (r,index)=>[
+
+        name,
+
+        index<3
+          ? "Highest"
+          : index<6
+            ? "Middle"
+            : "Lowest",
+
+        r.rank,
+
+        r.code,
+
+        r.name,
+
+        r.score
+
+      ]
+    )
+
+  ];
+
+  const csv=
+    rows.map(
+      row=>
+        row.map(
+          v=>
+            '"' +
+            String(v)
+              .replace(/"/g,'""')
+            + '"'
+        )
+        .join(",")
+    )
+    .join("\r\n");
+
+  const blob=
+    new Blob(
+      ["\ufeff"+csv],
+      {
+        type:"text/csv;charset=utf-8"
+      }
+    );
+
+  const url=
+    URL.createObjectURL(blob);
+
+  const a=
+    document.createElement("a");
+
+  a.href=url;
+
+  a.download=
+    "belbin-results.csv";
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  URL.revokeObjectURL(url);
+
 }
-);
 
-const a=
-document.createElement("a");
-
-a.href=
-URL.createObjectURL(blob);
-
-a.download=
-"belbin-results.csv";
-
-document.body.appendChild(a);
-
-a.click();
-
-a.remove();
-
-URL.revokeObjectURL(a.href);
-
-}
+/* =====================================================
+   EVENTS
+   ===================================================== */
 
 calcBtn.addEventListener(
-"click",
-calculate
+  "click",
+  calculate
 );
 
 document
-.getElementById("reset")
-.addEventListener(
-"click",
-resetAll
-);
+  .getElementById(
+    "reset"
+  )
+  .addEventListener(
+    "click",
+    resetAll
+  );
 
 document
-.getElementById("printBtn")
-.addEventListener(
-"click",
-()=>window.print()
-);
+  .getElementById(
+    "printBtn"
+  )
+  .addEventListener(
+    "click",
+    ()=>window.print()
+  );
 
 document
-.getElementById("csvBtn")
-.addEventListener(
-"click",
-downloadCSV
-);
+  .getElementById(
+    "csvBtn"
+  )
+  .addEventListener(
+    "click",
+    downloadCSV
+  );
+
+/* =====================================================
+   START
+   ===================================================== */
 
 renderQuestionnaire();
 
